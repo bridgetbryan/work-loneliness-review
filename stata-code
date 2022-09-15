@@ -22,4 +22,4 @@ label var sez "SE of z"
 meta set z sez, studylabel(authors)
 
 ** Meta-analysis **
-meta summarize, random(reml) transform(corr), subgroup(corr_scale)
+meta summarize, random(reml) transform(corr) subgroup(corr_scale)
