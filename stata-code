@@ -19,9 +19,7 @@ gen sez = sqrt(1/(n - 3))
 label var sez "SE of z"
 
 * Meta set data
-meta set z sez, studylabel(authors), subgroup(corr_scale)
+meta set z sez, studylabel(authors)
 
 ** Meta-analysis **
 meta summarize, random(reml) transform(corr), subgroup(corr_scale)
-
-meta forestplot _id _plot _esci _weight, random(reml) transform(corr) nullrefline subgroup(factor) 
