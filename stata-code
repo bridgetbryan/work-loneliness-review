@@ -1,0 +1,27 @@
+** Prepare data **
+
+* Recode variables
+rename var1 authors
+label var authors "Study authors"
+rename var2 year
+label var year "Publication year"
+rename var3 n
+label var n "Sample size"
+rename var4 r 
+label var r "Correlation co-efficient"
+rename var5 corr_scale
+label var corr_scale "Correlate measure"
+
+* Fisher's z transformation
+gen z = .5 * ln((1 + r) / (1 - r))
+label var z "Fishers z transformation r"
+gen sez = sqrt(1/(n - 3))
+label var sez "SE of z"
+
+* Meta set data
+meta set z sez, studylabel(authors), subgroup(corr_scale)
+
+** Meta-analysis **
+meta summarize, random(reml) transform(corr), subgroup(corr_scale)
+
+meta forestplot _id _plot _esci _weight, random(reml) transform(corr) nullrefline subgroup(factor) 
